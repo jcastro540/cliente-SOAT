@@ -1,11 +1,11 @@
-#README SPA SOAT Bajo el Stack MEAN
-##App desarrollada con NodeJS, MongoDB y Express en Back-End(ApiREST) y Angular 4, Bootstrap4 para el FrontEnd
+# README SPA SOAT Bajo el Stack MEAN
+## App desarrollada con NodeJS, MongoDB y Express en Back-End(ApiREST) y Angular 4, Bootstrap4 para el FrontEnd
 
-##Para la instalación del la app realice los siguientes pasos:
+## Para la instalación del la app realice los siguientes pasos:
 
 1. Clone o descargue el repositorio.
 
-###Para Cliente
+### Para Cliente
 
 Nota: Debe tener instalado NodeJS y npm en su ultima versión (recomendado), y Angular CLI para trabajar directamente sobre el proyecto
 
@@ -22,14 +22,14 @@ $npm install
 Arrancamos el Servidor
 $ng serve
 
-##Para iniciar Sesion como administrador
+## Para iniciar Sesion como administrador
 user: admin@admin.com
 pass: 123456
 
-##Cualquiera se puede registrar y su role será de invitado
+## Cualquiera se puede registrar y su role será de invitado
 
 
 
-###Si deseas arrancar la APP del cliente sin Angular CLI puedes copiar los archivos de la carpeta /dist y pergarlos en cualquier servidor local, tipo apache o http-server
+### Si deseas arrancar la APP del cliente sin Angular CLI puedes copiar los archivos de la carpeta /dist y pergarlos en cualquier servidor local, tipo apache o http-server
 
 
