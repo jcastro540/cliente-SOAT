@@ -1,28 +1,27 @@
-# ClienteSOAT
+#README SPA SOAT Bajo el Stack MEAN
+##App desarrollada con NodeJS, MongoDB y Express en Back-End(ApiREST) y Angular 4, Bootstrap4 para el FrontEnd
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+##Para la instalación del la app realice los siguientes pasos:
 
-## Development server
+1. Clone o descargue el repositorio.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+###Para Cliente
 
-## Code scaffolding
+Nota: Debe tener instalado NodeJS y npm en su ultima versión (recomendado), y Angular CLI para trabajar directamente sobre el proyecto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+Para instalar Angular CLI
+$npm install -g @angular/cli debes estar logueado como root ojo
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Muevase a la carpeta de repositorio 
+$cd cliente-SOAT
 
-## Running unit tests
+Instalamos las dependencias
+$npm install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Arrancamos el Servidor
+$ng serve
 
-## Running end-to-end tests
+###Si deseas arrancar la APP del cliente sin Angular CLI puedes copiar los archivos de la carpeta /dist y pergarlos en cualquier servidor local, tipo apache o http-server
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

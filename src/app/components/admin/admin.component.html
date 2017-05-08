@@ -1,0 +1,39 @@
+<section class="container mt-80">
+	<h2 class="text-center">Listado de Pólizas Vendidas</h2>
+
+	<table class="table">
+	  <thead class="thead-inverse">
+	    <tr>
+	      <th>#</th>
+	      <th>Poliza</th>
+	      <th>Tomador</th>
+	      <th>Placa</th>
+	      <th>Clase</th>
+	      <th>Subtipo</th>
+	      <th>Edad</th>
+	      <th>Detalle</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+		<tr *ngFor="let poliza of polizas;let i = index">
+		  <th scope="row">{{i+1}}</th>
+		  <td>{{poliza._id|slice:0:6}}</td>
+		  <td>Otto</td>
+		  <td>{{poliza.placa}}</td>
+		  <td>{{poliza.clase}}</td>
+		  <td>{{poliza.subtipo}}</td>
+		  <td>{{poliza.edad}}</td>
+		  <td>
+		  	<a class="btn btn-primary btn-sm" 
+		  		[routerLink]="['/poliza-detail', poliza._id]">
+		  		<i class="fa fa-search" aria-hidden="true"></i>
+		  	</a>
+		  </td>
+		</tr>
+	   </tbody>
+	</table>
+
+<tr>
+
+
+</section>

@@ -1,0 +1,121 @@
+<section class="container mt-80" id="print">
+	<h2 class="text-center">Resúmen de Compra</h2>
+	<hr>
+	<p class="text-right">
+		<button class="btn btn-info"
+			(click)="download()">Descargar PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+	</p>
+	<div class="row">
+		<article class="col-sm-12" *ngIf="poliza">
+		<div class="row">
+			<article class="col-md-6">
+				<h4>Código de Póliza: <small>{{poliza._id | slice:0:6}}</small></h4>
+
+			</article>
+			<article class="col-md-6">
+				<h4>Tomador: <span *ngFor="let user of poliza.user">
+					{{user.nombre}} {{user.apellido}}</span>
+				</h4>
+			</article>
+		</div>
+			
+			
+			<table class="table">
+			  <thead class="thead-inverse">
+			    <tr>
+			      <th>Fecha Inicio</th>
+			      <th>Fecha vencimiento</th>
+			      <th>Tasa comercial</th>
+			      <th>Valor Prima</th>
+			      <th>50% Fosyga</th>
+			      <th>Subtotal</th>
+			      <th>RUNT</th>
+			      <th>TOTAL</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td>{{poliza.fechaInicio | date:'dd-MMMM-yy'}}</td>
+			      <td>{{poliza.fechaVen | date:'dd-MMMM-yy'}}</td>
+			      <td>{{poliza.tasa}}</td>
+			      <td>{{poliza.valorPrima | currency:'COP':true:'3.2-2'}}</td>
+			      <td>{{poliza.fosyga | currency:'COP':true:'3.2-2'}}</td>
+			      <td>{{poliza.subtotal | currency:'COP':true:'3.2-2'}}</td>
+			      <td>1.610,00 COP</td>
+			      <th>{{poliza.total | currency:'COP':true:'3.2-2'}}</th>
+			    </tr>
+			   </tbody>
+			</table>
+			<div class="row">
+				<article class="col-md-6">
+					<h4 class="text-center">Pago</h4>
+					<hr>
+					<table class="table">
+					  <thead class="thead-inverse">
+					    <tr>
+					      <th>Nombre del titular</th>
+					      <th>Número Tdc</th>
+					      <th>Número de Cuotas</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr *ngFor="let pago of poliza.pago">
+					      <td>{{pago.nombreTitular}}</td>
+					      <td>{{pago.numeroTdc}}</td>
+					      <td>{{pago.numCuotas}}</td>
+					    </tr>
+					   </tbody>
+					</table>
+				</article>
+
+				<article class="col-md-6">
+					<h4 class="text-center">Vehículo</h4>
+					<hr>
+					<table class="table">
+					  <thead class="thead-inverse">
+					    <tr>
+					      <th>Placa</th>
+					      <th>Clase</th>
+					      <th>Subtipo</th>
+					      <th>Edad</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>{{poliza.placa}}</td>
+					      <td>{{poliza.clase}}</td>
+					      <td>{{poliza.subtipo}}</td>
+					      <td>{{poliza.edad}}</td>
+					    </tr>
+					   </tbody>
+					</table>
+				</article>
+			</div>
+			
+			<div class="row">
+				<article class="col-md-12">
+					<h4 class="text-center">Cobertura</h4>
+					<hr>
+					<table class="table">
+					  <thead class="thead-inverse">
+					    <tr>
+					      <th>Muerte y gastos funerarios</th>
+					      <th>Gastos médicos</th>
+					      <th>Incapacidad permanente</th>
+					      <th>Gastos de transporte</th>
+					      <th>Inicio de vigencia del seguro</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+						<td>750 SMLDV</td>
+						<td>800 SMLDV</td>
+						<td>180 SMLDV</td>
+						<td>10 SMLDV</td>
+						<td>{{poliza.fechaInicio | date:'medium'}}</td>
+					  </tbody>
+					</table>
+				</article>
+			</div>
+		</article>
+	</div>	
+</section>

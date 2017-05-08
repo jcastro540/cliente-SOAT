@@ -1,0 +1,197 @@
+<section class="container mt-80 animated fadeIn fast">
+	<div class="row">
+		<article class="col-md-6 offset-md-3 animated fadeIn fast">
+
+			<ul class="nav nav-tabs" role="tablist">
+			  <li class="nav-item">
+			    <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Login</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Registrarse</a>
+			  </li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+			  <div class="tab-pane active animated fadeIn fast" id="home" role="tabpanel">
+			  		<div class="card" id="login">
+						<div *ngIf="message"
+			  				class="alert alert-info">
+			  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+			  				{{message}}
+			  			</div>
+
+					    <div class="card-block">
+					      
+					      <form novalidate #formu="ngForm" (ngSubmit)='onSubmit()'>
+					      	<div class="form-group">
+								<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">
+								  	<i class="fa fa-envelope"></i>
+								  </span>
+								 <input [(ngModel)]="user.email"
+					      			   name="email" 
+					      			   type="text" 
+					      			   class="form-control" 
+					      			   placeholder="Correo" 
+					      			   required	
+					      			   #email= "ngModel"		      			   
+			  						   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+								</div>
+					      	</div>							
+
+							<span *ngIf="!email.valid && email.touched then requerido">      	
+					        </span>
+
+					        <span *ngIf="email.errors?.pattern"
+					              class="alert alert-info message" >
+					          	<strong>Debe escribir un correo válido</strong>
+					        </span>
+							
+					      	<div class="form-group">
+					      		<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">
+								  	<i class="fa fa-key"></i>
+								  </span>
+					      		<input [(ngModel)]="user.password"
+					      			   name="password" 
+					      			   type="password" 
+					      			   class="form-control" 
+					      			   placeholder="Password"
+					      			   required
+					      			   minlength="6" 
+					      			   #password="ngModel">
+								</div>
+					      	</div>
+					      	<span *ngIf="!password.valid && password.touched then requerido">	  </span>
+
+					      	<span *ngIf="password.errors?.minlength then caracteresMin">
+					        </span>
+
+					      	<button [disabled]="!formu.valid" 
+					      			class="btn btn-outline-primary btn-block">
+					      			Iniciar Sesion
+					      	</button>
+
+					      	<!-- Templates -->
+					        <ng-template #requerido>
+					        	<span class="alert alert-info message">
+					        		<strong>Este campo es requerido</strong>
+					        	</span>
+					        </ng-template>
+
+					        <ng-template #caracteresMin>
+					        	<span class="alert alert-info message">
+					        		<strong>Debe contener por lo menos 6 caracteres</strong>
+					        	</span>
+					        </ng-template>
+
+							<!-- Fin  Templates -->
+					      </form>
+					    </div>
+					  </div>
+			  </div>
+
+			  <!-- Registro -->
+
+			  <div class="tab-pane animated fadeIn fast" id="profile" role="tabpanel">
+			  	<form>
+			  		<div class="card">
+			  			<div *ngIf="messageRegistro"
+			  				class="alert alert-info">
+			  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+			  				{{messageRegistro}}
+			  			</div>
+						
+
+					    <div class="card-block">
+					      <h4 class="card-title text-center">Registro</h4>
+					      <form novalidate (ngSubmit)="addUser()" #forma="ngForm">
+					      	<div class="form-group">
+						      	<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">
+								  	<i class="fa fa-envelope"></i>
+								  </span>
+								  <input [(ngModel)]="user.email"
+						      			  name="correo"
+						      			  type="text"				      			  
+						      			  class="form-control" 
+						      			  placeholder="Correo"
+						      			  required
+						      			  #correo="ngModel"
+						      			  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+								</div>					      		
+					      	</div>
+							
+							<span  *ngIf="!correo.valid && correo.touched then requerido">
+					        </span>
+
+					        <span *ngIf="correo.errors?.pattern"
+					              class="alert alert-info message" >
+					          	<strong>Debe escribir un correo válido</strong>
+					        </span>
+
+					      	<div class="form-group">
+						      	<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">
+								  	<i class="fa fa-key"></i>
+								  </span>
+								  <input [(ngModel)]="user.password"
+						      			  name="clave"
+						      			  type="password" 
+						      			  class="form-control"
+						      			  placeholder="Password"
+						      			  minlength="6" 
+						      			  required 
+						      			  #clave="ngModel">
+								</div>					      		
+					      	</div>
+
+					      	<span  *ngIf="!clave.valid && clave.touched then requerido">	  
+					      	</span>
+
+					      	<span *ngIf="clave.errors?.minlength then caracteresMin">
+					        </span>
+
+					      	<div class="form-group">
+					      		<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">
+								  	<i class="fa fa-key"></i>
+								  </span>
+								 <input (keyup)="sonIguales()"
+								 		[(ngModel)]="password2"
+						      			#clave2
+						      			name="clave2" 
+					      			    type="password" class="form-control" 
+					      			    placeholder="Confirmar password"
+					      			    required>
+								</div>					      		
+					      	</div>
+
+							<span class="alert alert-info message" *ngIf="iguales==false">  
+								<strong>Los passwords no son iguales</strong>
+					      	</span>
+
+					      	<button [disabled]="!forma.valid" 
+					      			class="btn btn-outline-primary btn-block" 
+					      			type="sumbit">
+					      			Registrarme
+					      	</button>
+					      </form>
+					    </div>
+					  </div>
+			  	</form>
+				
+			  </div>
+			</div>
+
+
+
+
+		</article>
+	</div>
+</section>

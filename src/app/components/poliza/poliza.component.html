@@ -1,0 +1,403 @@
+<section class="container mt-80">
+	<h2 class="text-center">Comprar Póliza</h2>
+	<div class="row" *ngIf="visiblePoliza">
+		<article class="col-sm-10 offset-sm-1">			
+			<form novalidate #forma1="ngForm" class="formulario">  
+				<h3 class="text-center">Datos del Vehículo</h3>
+				<hr>
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Placa</label>
+							<input 	[(ngModel)]="poliza.placa"
+									(keyup)="buscarPlaca()"
+									#placa="ngModel"
+									name="placa"
+									type="text" 
+									class="form-control" 
+									placeholder="Placa del vehiculo"
+									required>
+						</div>
+						<div *ngIf="!placa.valid && placa.touched then requerido"></div>
+					</article>
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Clase</label>
+							<select (change)="evaluarClase($event)"
+									[(ngModel)]="poliza.clase"
+									#clase="ngModel"
+									name="clase" 
+									class="form-control"
+									required>
+									<option value="">Selecciona una opción</option>
+									<option *ngFor="let clase of clases"
+											value="{{clase}}">
+												{{clase}}
+											</option>
+							</select>
+						</div>
+						<div *ngIf="!clase.valid && clase.touched then requerido"></div>			
+					</article>
+				</div>			
+				
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Subtipo</label>
+							<input (change)="evaluarSubtipo($event)"							
+									[(ngModel)]="poliza.subtipo"
+									#subtipo="ngModel"
+									name="subtipo" 
+									type="number" 
+									class="form-control" 
+									placeholder="Subtipo"
+									>
+						</div>
+						<div *ngIf="claseCapturada == 'MOTOS' || claseCapturada == 'CAMPEROS Y CAMIONETAS' || claseCapturada == 'OFICIALES ESPECIALES' || claseCapturada == 'AUTOS FAMILIARES' || claseCapturada == 'VEHICULOS PARA SEIS O MAS PASAJEROS' || claseCapturada == 'AUTOS DE NEGOCIOS Y TAXIS' then cc"></div>
+
+						<div *ngIf="claseCapturada == 'CARGA O MIXTO' then toneladas"></div>
+						<div *ngIf="claseCapturada == 'SERVICIO PUBLICO INTERMUNICIPAL' then pasajeros"></div>
+						
+						<div *ngIf="!clase.valid && clase.touched then requerido"></div>
+
+					</article>
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Edad</label>
+							<input (change)="evaluarEdad($event)"
+									[(ngModel)]="poliza.edad"
+									#edad="ngModel"
+									name="edad" 
+									type="number" 
+									class="form-control" 
+									placeholder="Edad del vehículo">
+						</div>
+					</article>
+				</div>
+				
+				<div class="row" *ngIf="this.poliza.placa">
+					
+					<article class="col-md-12">
+					<br>
+					<h4 class="text-center">Datos del SOAT</h4>
+					<hr>
+						<table class="table">
+						  <thead class="thead-inverse">
+						    <tr>
+						      <th>Fecha Inicio</th>
+						      <th>Fecha vencimiento</th>
+						      <th>Tasa comercial</th>
+						      <th>Valor Prima</th>
+						      <th>50% Fosyga</th>
+						      <th>Subtotal</th>
+						      <th>RUNT</th>
+						      <th>TOTAL</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <td>{{poliza.fechaInicio | date:'dd-MMMM-yy'}}</td>
+						      <td>{{poliza.fechaVen | date:'dd-MMMM-yy'}}</td>
+						      <td>{{poliza.tasa}}</td>
+						      <td>{{poliza.valorPrima | currency:'COP':true:'3.2-2'}}</td>
+						      <td>{{poliza.fosyga | currency:'COP':true:'3.2-2'}}</td>
+						      <td>{{poliza.subtotal | currency:'COP':true:'3.2-2'}}</td>
+						      <td>1.610,00 COP</td>
+						      <th>{{poliza.total | currency:'COP':true:'3.2-2'}}</th>
+						    </tr>
+						   </tbody>
+						</table>
+
+						<h4 class="text-center">Cobertura</h4>
+						<hr>
+						<table class="table">
+						  <thead class="thead-inverse">
+						    <tr>
+						      <th>Muerte y gastos funerarios</th>
+						      <th>Gastos médicos</th>
+						      <th>Incapacidad permanente</th>
+						      <th>Gastos de transporte</th>
+						      <th>Inicio de vigencia del seguro</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+							<td>750 SMLDV</td>
+							<td>800 SMLDV</td>
+							<td>180 SMLDV</td>
+							<td>10 SMLDV</td>
+							<td>{{poliza.fechaInicio | date:'medium'}}</td>
+						  </tbody>
+						</table>
+							
+
+					</article>
+				</div>
+
+				<div class="row">
+					<article class="col-md-12">
+						<p>
+							<button type="button" (click)="siguiente()" [disabled]="!forma1.valid"
+								class="btn btn-outline-info btn-block">Siguiente</button>
+						</p>
+					</article>
+				</div>
+
+			</form>
+
+
+		</article>
+		
+	</div>
+<!-- TOMADOR -->
+	<div class="row visibleOf" [ngClass]="{'visibleOn':visibleTomador}">
+		<article class="col-sm-8 offset-md-2 " >
+			
+			<form novalidate #forma2="ngForm" class="formulario">  
+				<h3 class="text-center">Datos del Tomador</h3>
+				<hr>
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Tipo Documento</label>
+							<select [(ngModel)]="user.tipoDoc"
+									#tipoDoc="ngModel"
+									name="tipoDoc" 
+									class="form-control"
+									required>
+									<option value=""></option>
+									<option *ngFor="let doc of tipoDocumento"
+										value="{{doc}}">
+											{{doc}}
+									</option>
+							</select>
+						</div>
+						<div *ngIf="!tipoDoc.valid && tipoDoc.touched then requerido"></div>
+					</article>
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Número Documento</label>
+							<input [(ngModel)]="user.numDoc"
+									#numDoc="ngModel"
+									name="numDoc" 
+									type="number" 
+									class="form-control" 
+									placeholder="Número de Documento"
+									required>
+						</div>
+						<div *ngIf="!numDoc.valid && numDoc.touched then requerido"></div>
+					</article>
+				</div>			
+				
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Nombre</label>
+							<input [(ngModel)]="user.nombre"
+									#nombre="ngModel"
+									name="nombre" 
+									type="text" 
+									class="form-control" 
+									placeholder="Nombre"
+									required>
+						</div>
+						<div *ngIf="!nombre.valid && nombre.touched then requerido"></div>
+					</article>
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Apellido</label>
+							<input [(ngModel)]="user.apellido"
+									#apellido="ngModel"
+									name="apellido" 
+									type="text" 
+									class="form-control" 
+									placeholder="Apellido"
+									required>
+						</div>
+						<div *ngIf="!apellido.valid && apellido.touched then requerido"></div>
+					</article>
+				</div>
+
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Email</label>
+							<input [(ngModel)]="user.email"
+									#email="ngModel"
+									name="email" 
+									type="text" 
+									class="form-control" 
+									placeholder="email"
+									disabled>
+						</div>
+					</article>
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Teléfono</label>
+							<input [(ngModel)]="user.telefono"
+									#telefono="ngModel"
+									name="telefono" 
+									type="text" 
+									class="form-control" 
+									placeholder="Número teléfonico">
+						</div>
+					</article>
+				</div>
+
+				<div class="row">
+					<article class="col-md-12">
+						<button (click)="actualizarUsuario()"
+								[disabled]="!forma2.valid"
+								class="btn btn-outline-info btn-block">Siguiente</button>
+					</article>
+				</div>
+
+			</form>
+
+		</article>
+	</div>
+
+	<!-- PAGO -->
+	<div class="row visibleOf" [ngClass]="{'visibleOn':visiblePago}">
+		<article class="col-sm-8 offset-md-2 " >
+			
+			<form novalidate #forma3="ngForm" class="formulario" >  
+				<h3 class="text-center">Pago de la Póliza</h3>
+				<hr>
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Número TDC</label>
+							<input [(ngModel)]="pago.numeroTdc"
+									#numeroTdc="ngModel"
+									name="numeroTdc" 
+									type="number" 
+									class="form-control" 
+									placeholder="Número de tarjeta de crédito"
+									required>
+						
+						</div>
+						<div *ngIf="!numeroTdc.valid && numeroTdc.touched then requerido"></div>
+					</article>
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Nombre del Titular</label>
+							<input [(ngModel)]="pago.nombreTitular"
+									#nombreTitular="ngModel"
+									name="nombreTitular" 
+									type="text" 
+									class="form-control" 
+									placeholder="Nombre de titular"
+									required>
+						</div>
+						<div *ngIf="!nombreTitular.valid && nombreTitular.touched then requerido"></div>
+					</article>
+				</div>			
+				
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Fecha de vencimiento</label>
+							<input  (change)="validarFechaTdc()"
+									[(ngModel)]="pago.fechaVen"
+									#fechaVen="ngModel"
+									name="fechaVen" 
+									type="date" 
+									class="form-control" 
+									placeholder="Fecha de venciomiento de la tdc" required>
+						</div>
+						<div *ngIf="!fechaVen.valid && fechaVen.touched then requerido"></div>
+						<div *ngIf="validarFechaTdc() then fecha"></div>
+					</article>
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>CVV</label>
+							<input [(ngModel)]="pago.cvv"
+									#cvv="ngModel"
+									name="cvv" 
+									type="text" 
+									class="form-control" 
+									placeholder="Código de verificaión" required>
+						</div>
+						<div *ngIf="!cvv.valid && cvv.touched then requerido"></div>
+					</article>
+				</div>
+
+				<div class="row">
+					<article class="col-md-6">
+						<div class="form-group">
+							<label>Número de cuotas</label>
+							<input [(ngModel)]="pago.numCuotas"
+									#numCuotas="ngModel"
+									name="numCuotas" 
+									type="number" 
+									class="form-control" 
+									placeholder="numCuotas" required>
+						</div>
+						<div *ngIf="!numCuotas.valid && numCuotas.touched then requerido"></div>
+					</article>
+				</div>
+
+				<div class="row">
+					<article class="col-md-12">
+						<button (click)="pagar()"
+								[disabled]="!forma3.valid"
+								class="btn btn-outline-info btn-block">Procesar Pago</button>
+					</article>
+				</div>
+
+			</form>
+
+		</article>
+	</div>
+
+
+<!-- templates -->
+<ng-template #requerido>
+	<span class="alert alert-info alert-curso">
+		<strong>Este campo es requerido</strong>
+	</span>
+</ng-template>
+
+<ng-template #fecha>
+	<span class="alert alert-danger alert-curso">
+		<strong>Tarjeta Vencida</strong>
+	</span>
+</ng-template>
+
+<ng-template #cc>
+	<span class="alert alert-success">* c.c</span>
+</ng-template>
+
+<ng-template #toneladas>
+	<span class="alert alert-success">* Toneladas</span>
+</ng-template>
+
+<ng-template #pasajeros>
+	<span class="alert alert-success">* Pasajeros</span>
+</ng-template>
+
+<!-- templates -->
+
+</section>
+<!-- 	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+<pre>
+	{{poliza|json}}
+</pre>
+
+<pre>
+	{{pago|json}}
+</pre> -->
+<!-- 
+<pre>
+	{{user|json}}
+</pre>
+ -->

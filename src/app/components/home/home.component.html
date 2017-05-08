@@ -1,0 +1,63 @@
+<section class="container mt-80 animated fadeIn fast">
+	<div class="row">
+		<article class="col-md-3">
+			<label for="name">Buscador de SOAT</label>
+			<input [(ngModel)]="placa"
+			(keyup)="buscarPlaca()"
+			type="text" name="placa" 
+			class="form-control" 
+			placeholder="Buscar placa SOAT">
+			
+		</article>
+
+		<div class="col-md-9" *ngIf="_polizaService.placa">
+			<div class="row">
+				<article class="col-md-6 animated fadeIn fast puntero" 
+						*ngIf="_polizaService.placa.message"
+						>
+						<br>	
+					<div class="alert alert-info">
+						<strong>{{_polizaService.placa.message}}</strong>
+					</div>					
+					
+				</article>
+				<article class="col-md-8 offset-md-2 puntero animated fadeIn fast" 
+						*ngIf="!_polizaService.placa.message">
+						<div class="card card-inverse" style="background-color: #333; border-color: #333;">
+						  <div class="card-block">
+						    <h3 class="card-title text-uppercase text-center">
+						    	Placa: {{_polizaService.placa.poliza.placa}}</h3>
+						    <h5 class="card-title text-uppercase">Tomador: 
+								
+								<span *ngFor ="let user of _polizaService.placa.poliza.user">
+									 {{user.nombre}} {{user.apellido}}
+								</span>
+						   
+						    </h5>
+
+						   <b>Clase: </b><span>{{_polizaService.placa.poliza.clase}}</span> <br>
+
+						   <b>Subtipo: </b><span>{{_polizaService.placa.poliza.subtipo}}</span> |
+
+
+						   <b>Edad: </b><span>{{_polizaService.placa.poliza.edad}}</span> 
+							<br>
+							<h5 class="text-center">Vigencia</h5>
+							<hr>
+							<b>Fecha Inicio: </b><span>{{_polizaService.placa.poliza.fechaInicio | date:'dd-MMMM-yy'}}</span> |
+							<b>Fecha Vencimiento: </b><span>{{_polizaService.placa.poliza.fechaVen | date:'dd-MMMM-yy'}}</span> 
+							<br>
+							<br>
+						    <a *ngIf="_authService.esAdmin()"
+						    [routerLink]="['/poliza-detail',_polizaService.placa.poliza._id]"
+						     class="btn btn-primary btn-block">VER DETALLE</a>
+						  </div>
+						</div>					
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- [routerLink]="['/artista', artista.id]"> -->
+
+{{_polizaService.placas|json}}
