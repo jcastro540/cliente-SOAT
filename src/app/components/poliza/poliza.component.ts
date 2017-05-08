@@ -25,7 +25,7 @@ export class PolizaComponent implements OnInit {
   public calc = new Date().setFullYear(new Date().getFullYear() + 1);
   public fin = new Date(this.calc)
 
-  public poliza:Poliza  = new Poliza('','','',null,this.inicio,this.fin,null,null,null,null,null,'',this.pago._id);
+  public poliza:Poliza;
   public message:string;
   public mensaje:string;
 
@@ -67,6 +67,8 @@ export class PolizaComponent implements OnInit {
 
   		// console.log(this._authService.usuarioLogeado._id)
   		this.user = this._authService.usuarioLogeado;
+  		this.poliza = new Poliza('','','',null,this.inicio,this.fin,null,null,null,null,null,'',this.pago._id,this._authService.usuarioLogeado.email);
+  		console.log(this.poliza)
   }
 
   ngOnInit() {
@@ -107,7 +109,7 @@ export class PolizaComponent implements OnInit {
 	  	if(this.poliza.placa == ""){
 	  		this.mensaje = "";
 	  		this.setearFechas();
-	  		this.poliza = new Poliza('','','',null,this.inicio,this.fin,null,null,null,null,null,this.user._id,this.pago._id);
+	  		this.poliza = new Poliza('','','',null,this.inicio,this.fin,null,null,null,null,null,this.user._id,this.pago._id,this._authService.usuarioLogeado.email);
 	  		return
 	  	}else{
 	  		this._polizaService.getPlaca(this.poliza.placa)

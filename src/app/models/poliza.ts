@@ -12,7 +12,8 @@ export class Poliza{
 		public subtotal: number,
 		public total: number,
 		public user: any,
-		public pago: any
+		public pago: any,
+		public emailUser?:any
 	){}
 
 }
