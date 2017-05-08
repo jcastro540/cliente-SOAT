@@ -18,7 +18,11 @@
 		<tr *ngFor="let poliza of polizas;let i = index">
 		  <th scope="row">{{i+1}}</th>
 		  <td>{{poliza._id|slice:0:6}}</td>
-		  <td>Otto</td>
+		  <td>
+		  	<span *ngFor="let user of poliza.user">
+		  		{{user.nombre}} {{user.apellido}}
+		  	</span>
+		  </td>
 		  <td>{{poliza.placa}}</td>
 		  <td>{{poliza.clase}}</td>
 		  <td>{{poliza.subtipo}}</td>
