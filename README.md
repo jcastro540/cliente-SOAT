@@ -22,6 +22,14 @@ $npm install
 Arrancamos el Servidor
 $ng serve
 
+##Para iniciar Sesion como administrador
+user: admin@admin.com
+pass: 123456
+
+##Cualquiera se puede registrar y su role será de invitado
+
+
+
 ###Si deseas arrancar la APP del cliente sin Angular CLI puedes copiar los archivos de la carpeta /dist y pergarlos en cualquier servidor local, tipo apache o http-server
 
 
