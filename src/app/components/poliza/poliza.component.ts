@@ -67,7 +67,7 @@ export class PolizaComponent implements OnInit {
 
   		// console.log(this._authService.usuarioLogeado._id)
   		this.user = this._authService.usuarioLogeado;
-  		this.poliza = new Poliza('','','',null,this.inicio,this.fin,null,null,null,null,null,'',this.pago._id,this._authService.usuarioLogeado.email);
+  		this.poliza = new Poliza('','','',null,this.inicio,this.fin,null,null,null,null,null,'',this.pago._id,this._authService.usuarioLogeado.email); 
   		console.log(this.poliza)
   }
 
