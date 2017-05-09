@@ -137,7 +137,7 @@ export class PolizaComponent implements OnInit {
 								// 	this.user = result.user;
 								// 	console.log()
 								// 	//Mostrar el otro form
-								// }
+								// } 
 							},
 							error=>{
 								console.log(error);
