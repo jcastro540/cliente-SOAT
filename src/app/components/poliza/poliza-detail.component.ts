@@ -61,22 +61,15 @@ export class PolizaDetailComponent implements OnInit {
 
 	download() {
 
-        var doc = new jsPDF('landscape','pt','legal');
-		var specialElementHandlers = {
-			'#editor': function(element, renderer){
-				return true;
-			}
-		};
+	   var pdf = new jsPDF('p', 'pt', 'letter');
+	        let options = {
+	            background: '#fff' //background is transparent if you don't set it, which turns it black for some reason.
+	        };
+	        pdf.addHTML($('#content')[0], 15, 15,options, function () {
+	                pdf.save('Test.pdf');
+	        });
+	  	
+	    }
 
-
-		doc.fromHTML($('#print').html(), 30, 15, {'width': 350,'elementHandlers': specialElementHandlers});
-	    // doc.autoPrint();
-	    // doc.output("dataurlnewwindow");
-
-
-
-        // Save the PDF
-        doc.save('poliza.pdf');
-    }
 
 }

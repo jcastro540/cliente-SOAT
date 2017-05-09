@@ -27,6 +27,7 @@
         "assets/jquery/jquery.slim.min.js",
         "assets/tether/tether.min.js",
         "assets/b4/js/bootstrap.min.js",
+        "assets/html2canvas.js",
         "../node_modules/jspdf/dist/jspdf.min.js"
       ],
       "environmentSource": "environments/environment.ts",
