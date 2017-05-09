@@ -66,7 +66,7 @@ export class PolizaDetailComponent implements OnInit {
 	            background: '#fff' //background is transparent if you don't set it, which turns it black for some reason.
 	        };
 	        pdf.addHTML($('#content')[0], 15, 15,options, function () {
-	                pdf.save('Test.pdf');
+	                pdf.save('poliza.pdf');
 	        });
 	  	
 	    }
