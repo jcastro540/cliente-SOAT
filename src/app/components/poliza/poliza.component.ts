@@ -132,12 +132,12 @@ export class PolizaComponent implements OnInit {
 						.subscribe(
 							result=>{
 								console.log(result);
-								this.buscarUsuario();
-								if(result.user){
-									this.user = result.user;
-									console.log()
-									//Mostrar el otro form
-								}
+								// this.buscarUsuario();
+								// if(result.user){
+								// 	this.user = result.user;
+								// 	console.log()
+								// 	//Mostrar el otro form
+								// }
 							},
 							error=>{
 								console.log(error);
