@@ -23,7 +23,8 @@ export class PolizaComponent implements OnInit {
 
   public inicio = new Date();
   public calc = new Date().setFullYear(new Date().getFullYear() + 1);
-  public fin = new Date(this.calc)
+  public fin = new Date(this.calc);
+  public end:Date;
 
   public poliza:Poliza;
   public message:string;
@@ -131,8 +132,8 @@ export class PolizaComponent implements OnInit {
 		this._userService.editUser(this.user._id, this.user)
 						.subscribe(
 							result=>{
-								console.log(result);
-								// this.buscarUsuario();
+								// console.log(result);
+								this.buscarUsuario();
 								// if(result.user){
 								// 	this.user = result.user;
 								// 	console.log()
@@ -199,10 +200,15 @@ export class PolizaComponent implements OnInit {
 		if(this.poliza.fechaVen){
 			let nueva= this.fin.setDate(this.fin.getDate() + 1);
 			this.inicio = new Date(nueva);
-			let calc = new Date().setFullYear(new Date().getFullYear() + 2);
+
+			let calc = this.fin.setFullYear(new Date().getFullYear() + 2);
 			let fin = new Date(calc);
 			this.fin = fin;
+			// console.log(this.fin)
 		}
+		this.poliza._id = '';
+		// console.log(this.poliza._id);
+		// console.log(this.poliza)
 
 	}
 
